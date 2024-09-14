@@ -3,7 +3,7 @@ export function createRecipeCard(recipe) {
     return `
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-                <img src="${recipe.image}" class="card-img-top" alt="${recipe.name}">
+                <img src="./data/JSON recipes/${recipe.image}" class="card-img-top" alt="${recipe.name}">
                 <div class="card-body">
                     <h5 class="card-title">${recipe.name}</h5>
                     <p class="card-text">${recipe.description}</p>
