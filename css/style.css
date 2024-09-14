@@ -1,15 +1,18 @@
 .background-image {
-    background-image: url(../fond.jpg);
+    background-image: url(../data/fond.jpg);
     background-size: cover;
     background-position: center;
     height: 667px;
     position: relative;
 }
 .logo {
-    background-image: url(../logo.jpg);
+    background-image: url(../data/logo.jpg);
 }
 .btn-secondary {
     color: #fff;
     background-color: #fff;
     border-color: #fff;
+}
+.search-container .row {
+    margin-top: 20px;
 }
