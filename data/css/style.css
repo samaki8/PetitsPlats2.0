@@ -1,0 +1,15 @@
+.background-image {
+    background-image: url(../fond.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 667px;
+    position: relative;
+}
+.logo {
+    background-image: url(../logo.jpg);
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #fff;
+    border-color: #fff;
+}
