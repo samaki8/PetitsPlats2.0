@@ -1,18 +1,140 @@
+@charset "UTF-8";
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.manrope-votre-unique-nom-de-classe {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background: #EDEDED;
+}
+
 .background-image {
-    background-image: url(../data/fond.jpg);
-    background-size: cover;
-    background-position: center;
-    height: 667px;
-    position: relative;
+  background-image: url("../data/fond.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 667px;
+  position: relative;
 }
+
 .logo {
-    background-image: url(../data/logo.jpg);
+  /*  background-image: url($logo-image-url);*/
+  margin-left: 69px;
+  margin-top: 51px;
 }
-.btn-secondary {
-    color: #fff;
-    background-color: #fff;
-    border-color: #fff;
+
+/*
+.logo txt {
+    display: flex;
+
+padding-right: 0px;
+justify-content: center;
+align-items: flex-end;
+gap: 4.599px;
+flex-shrink: 0;
+margin-left: 69px;
+width: 285.58px;
+height: 40px;
+flex-shrink: 0;
+}*/
+.dropdown {
+  display: inline-flex;
+  padding: 17px 16px;
+  align-items: center;
+  gap: 63px;
+  border-radius: 11px;
+  background: #FFF;
+  margin-bottom: 55px;
 }
-.search-container .row {
-    margin-top: 20px;
+
+.dropdown-toggle {
+  color: var(--Black, #1B1B1B);
+  font-family: Manrope;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
+
+/* Ajouter une gap de 63px après .dropdown-toggle::after */
+/*
+.dropdown-toggle::after {
+    margin-left: 63px;
+}
+*/
+/* Espacer les filtres de 63px entre eux */
+/*.filter-group>.col {
+    margin-right: 63px;
+}
+*/
+.nbcard {
+  color: var(--Black, #1B1B1B);
+  font-family: Anton;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-img-top {
+  width: 380px;
+  height: 253px;
+  flex-shrink: 0;
+  border-radius: 21px 21px 0 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.card {
+  width: 380px;
+  height: 731px;
+  flex-shrink: 0;
+  border-radius: 21px;
+  background: #FFF;
+  box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  color: #000;
+  font-family: Anton;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-text {
+  color: var(--Black, #1B1B1B);
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card-tt {
+  color: var(--Grey, #7A7A7A);
+  font-family: Manrope;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1.08px;
+  text-transform: uppercase;
+}
+
+.list-group-item small {
+  color: var(--Grey, #7A7A7A);
+  font-family: Manrope;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}/*# sourceMappingURL=style.css.map */
