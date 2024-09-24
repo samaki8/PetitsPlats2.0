@@ -1,5 +1,5 @@
-// RecipeCard.js
-// RecipeCard.js
+
+// scripts/models/RecipeCard.js
 export function createRecipeCard(recipe) {
     return `
         <div class="col">

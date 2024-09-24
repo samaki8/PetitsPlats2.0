@@ -211,3 +211,19 @@ line-height: normal;
 
 
 }
+
+.badge {
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin: 0.5em;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0.25em;
+}
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+}
