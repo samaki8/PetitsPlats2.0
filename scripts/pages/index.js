@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('main-search').addEventListener('input', (e) => {
         filteredRecipes = filterByMainSearch(e.target.value, recipes);
         updateRecipeCards();
+        /*addTag(e.target.value);*/
     });
 
     document.getElementById('dropdownMenuButton1').addEventListener('input', (e) => {
