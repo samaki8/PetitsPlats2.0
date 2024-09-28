@@ -212,6 +212,7 @@ flex-shrink: 0;
   background-color: #007bff;
   color: white;
   border-radius: 0.25em;
+  margin-bottom: 43px;
 }
 
 .btn-close {
