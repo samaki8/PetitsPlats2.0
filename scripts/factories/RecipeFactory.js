@@ -1,4 +1,4 @@
-// RecipeFactory.js
+// scripts\factories\RecipeFactory.js
 export function RecipeFactory(data) {
     return {
         id: data.id,

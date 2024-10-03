@@ -2,7 +2,7 @@
 // RecipeCard.js
 export function createRecipeCard(recipe) {
     return `
-        <div class="col">
+        <div class="col d-flex justify-content-center align-items-center">
             <div class="card h-100 shadow-sm" >
                 <div class="position-relative">
                     <img src="./data/JSON recipes/${recipe.image}" class="card-img-top" alt="${recipe.name}">
