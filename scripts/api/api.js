@@ -1,5 +1,5 @@
 //api.js
-import { recipes } from '/data/recipes.js';
+import { recipes } from '../../data/recipes.js';
 import { RecipeFactory } from '../factories/RecipeFactory.js';
 /*
 export async function fetchRecipes() {
