@@ -1,6 +1,6 @@
 // models/search.js
 import { createRecipeCard } from '../models/RecipeCard.js';
-import { recipes } from '/data/recipes.js';
+import { recipes } from '../../data/recipes.js';
 
 let searchResults = [];
 

@@ -1,6 +1,6 @@
 // scripts\models\filtres.js
 
-import { recipes } from '/data/recipes.js';
+import { recipes } from '../../data/recipes.js';
 import { createRecipeCard } from '../models/RecipeCard.js';
 
 export function populateFilters() {
