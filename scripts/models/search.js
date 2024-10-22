@@ -55,7 +55,7 @@ export function searchRecipes(query) {
     return searchResults; // Ajoutez cette ligne pour retourner les résultats
 }
 */
-export function displayResults(results) {
+export function displayResults(results, showError = false) {
     const recipeCardsContainer = document.getElementById('recipe-cards');
     const errorMessage = document.getElementById('error-message');
     const nbCard = document.querySelector('.nbcard');
@@ -63,26 +63,25 @@ export function displayResults(results) {
     const query = mainSearch.value.trim();
 
     if (!results || results.length === 0) {
-        if (query) {
+        if (showError && query.length >= 3) {
             errorMessage.textContent = `Aucune recette ne contient "${query}"`;
+            errorMessage.style.display = 'block';
         } else {
-            errorMessage.textContent = 'Aucune recette trouvée';
+            errorMessage.style.display = 'none';
         }
-        errorMessage.style.display = 'block';
         recipeCardsContainer.innerHTML = '';
         nbCard.textContent = '0 Recettes';
         return;
     }
 
-    // Si on a des résultats
     errorMessage.style.display = 'none';
     recipeCardsContainer.innerHTML = results.map(result => createRecipeCard(result)).join('');
     nbCard.textContent = `${results.length} Recettes`;
 }
 
-export function searchRecipes(query) {
+export function searchRecipes(query, showError = false) {
     searchResults = performSearch(query);
-    displayResults(searchResults);
+    displayResults(searchResults, showError);
     return searchResults;
 }
 
