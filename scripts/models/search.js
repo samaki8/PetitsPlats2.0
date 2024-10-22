@@ -1,6 +1,174 @@
 // models/search.js
 
-// models/search.js
+import { createRecipeCard } from '../models/RecipeCard.js';
+import { recipes } from '../../data/recipes.js';
+
+let searchResults = recipes;
+
+export function performSearch(query, recipesToSearch = recipes) {
+    if (query.length < 3) {
+        return recipesToSearch;
+    }
+
+    // Split la recherche en mots
+    const searchTerms = query.toLowerCase().trim().split(/\s+/);
+    const filteredRecipes = [];
+
+    // Remplace filter et every par des boucles for
+    for (let i = 0; i < recipesToSearch.length; i++) {
+        const recipe = recipesToSearch[i];
+        let allTermsMatch = true;
+
+        for (let j = 0; j < searchTerms.length; j++) {
+            const term = searchTerms[j];
+            const wordBoundaryQuery = new RegExp(`\\b${term}\\b`, 'i');
+            
+            const nameMatch = wordBoundaryQuery.test(recipe.name.toLowerCase());
+            const descriptionMatch = wordBoundaryQuery.test(recipe.description.toLowerCase());
+            
+            // Remplace some par une boucle for
+            let ingredientMatch = false;
+            for (let k = 0; k < recipe.ingredients.length; k++) {
+                if (wordBoundaryQuery.test(recipe.ingredients[k].ingredient.toLowerCase())) {
+                    ingredientMatch = true;
+                    break;
+                }
+            }
+
+            if (!(nameMatch || descriptionMatch || ingredientMatch)) {
+                allTermsMatch = false;
+                break;
+            }
+        }
+
+        if (allTermsMatch) {
+            filteredRecipes.push(recipe);
+        }
+    }
+
+    return filteredRecipes;
+}
+
+export function clearAllSearchTags() {
+    const tagsContainer = document.getElementById('tags-container');
+    if (tagsContainer) {
+        const badges = tagsContainer.querySelectorAll('.badge');
+        // Remplace forEach par une boucle for
+        for (let i = 0; i < badges.length; i++) {
+            badges[i].remove();
+        }
+    }
+}
+
+export function displayResults(results, showError = false) {
+    const recipeCardsContainer = document.getElementById('recipe-cards');
+    const errorMessage = document.getElementById('error-message');
+    const nbCard = document.querySelector('.nbcard');
+    const mainSearch = document.getElementById('main-search');
+    const query = mainSearch.value.trim();
+
+    if (!results || results.length === 0) {
+        if (showError && query.length >= 3) {
+            errorMessage.textContent = `Aucune recette ne contient "${query}"`;
+            errorMessage.style.display = 'block';
+        } else {
+            errorMessage.style.display = 'none';
+        }
+        recipeCardsContainer.innerHTML = '';
+        nbCard.textContent = '0 Recettes';
+        return;
+    }
+
+    errorMessage.style.display = 'none';
+    
+    // Remplace map par une boucle for
+    let htmlContent = '';
+    for (let i = 0; i < results.length; i++) {
+        htmlContent += createRecipeCard(results[i]);
+    }
+    recipeCardsContainer.innerHTML = htmlContent;
+    nbCard.textContent = `${results.length} Recettes`;
+}
+
+export function searchRecipes(query, showError = false) {
+    searchResults = performSearch(query);
+    displayResults(searchResults, showError);
+    return searchResults;
+}
+
+export function filterRecipes(filterFunction) {
+    if (!searchResults) searchResults = [];
+    searchResults = filterFunction(searchResults);
+    displayResults(searchResults);
+    return searchResults;
+}
+
+export function filterByIngredient(ingredient) {
+    return (recipes) => {
+        const filteredRecipes = [];
+        // Remplace filter et some par des boucles for
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            let found = false;
+            for (let j = 0; j < recipe.ingredients.length; j++) {
+                if (recipe.ingredients[j].ingredient.toLowerCase().includes(ingredient.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                filteredRecipes.push(recipe);
+            }
+        }
+        return filteredRecipes;
+    };
+}
+
+export function filterByUstensil(ustensil) {
+    return (recipes) => {
+        const filteredRecipes = [];
+        // Remplace filter et some par des boucles for
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            let found = false;
+            for (let j = 0; j < recipe.ustensils.length; j++) {
+                if (recipe.ustensils[j].toLowerCase().includes(ustensil.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                filteredRecipes.push(recipe);
+            }
+        }
+        return filteredRecipes;
+    };
+}
+
+export function filterByAppliance(appliance) {
+    return (recipes) => {
+        const filteredRecipes = [];
+        // Remplace filter et some par des boucles for
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            let found = false;
+            for (let j = 0; j < recipe.appliances.length; j++) {
+                if (recipe.appliances[j].toLowerCase().includes(appliance.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                filteredRecipes.push(recipe);
+            }
+        }
+        return filteredRecipes;
+    };
+}
+
+
+
+/*
 import { createRecipeCard } from '../models/RecipeCard.js';
 import { recipes } from '/data/recipes.js';
 
@@ -98,3 +266,4 @@ export function filterByMainSearch(searchTerm, recipesToFilter = recipes) {
     displayResults(filteredRecipes);
     return filteredRecipes;
 }
+*/
