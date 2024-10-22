@@ -1,5 +1,4 @@
 // scripts\pages\index.js
-
 import { fetchRecipes } from '../api/api.js';
 import { createRecipeCard } from '../models/RecipeCard.js';
 import { populateFilters, applyFilters } from '../models/filtres.js';
@@ -45,13 +44,16 @@ const setupSearchHandlers = (
 
     const performSearch = () => {
         const query = mainSearch.value.trim();
-        
+        /*
         if (query.length > 0 && query.length < 3) {
             errorMessage.textContent = 'Veuillez saisir au moins 3 caractères pour la recherche';
             errorMessage.style.display = 'block';
             return;
         }
-        
+        */
+        if (query.length > 0 && query.length < 3) {
+            return;
+        }
         if (query.length === 0) {
             errorMessage.style.display = 'none';
             updateRecipeCards(recipes);
@@ -76,6 +78,10 @@ const setupSearchHandlers = (
             return;
         }
         */
+        if (query.length < 3) {
+            updateRecipeCards(recipes);
+            return;
+        }
         const searchResults = searchRecipes(query);
         if (!searchResults) return;
         
@@ -96,7 +102,7 @@ const setupSearchHandlers = (
     };
 
     // Gestionnaires d'événements
-    mainSearch.addEventListener('input', () => {
+    /*mainSearch.addEventListener('input', () => {
         clearTimeout(searchTimeout);
         performSearch();
         
@@ -104,7 +110,25 @@ const setupSearchHandlers = (
             searchTimeout = setTimeout(executeSearch, 300);
         }
     });
-
+     */
+    mainSearch.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        
+        // On ne veut plus exécuter la recherche immédiatement avec performSearch()
+        // On veut juste gérer le bouton clear
+        toggleClearButton();
+        
+        if (mainSearch.value.trim().length >= 3) {
+            // On cache le message d'erreur pendant la saisie
+            errorMessage.style.display = 'none';
+            // On attend la fin de la saisie avant d'exécuter la recherche
+            searchTimeout = setTimeout(executeSearch, 500);
+        } else {
+            // Si moins de 3 caractères, on réinitialise l'affichage
+            updateRecipeCards(recipes);
+            errorMessage.style.display = 'none';
+        }
+    });
     mainSearch.addEventListener('blur', executeSearch);
     document.getElementById('searchButton').addEventListener('click', executeSearch);
     clearSearchButton.addEventListener('click', clearSearch);

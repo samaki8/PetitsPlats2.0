@@ -35,26 +35,7 @@ export function clearAllSearchTags() {
         badges.forEach(badge => badge.remove());
     }
 }
-/*
-export function displayResults(results) {
-    const recipeCardsContainer = document.getElementById('recipe-cards');
-    if (recipeCardsContainer) {
-        recipeCardsContainer.innerHTML = results.map(result => createRecipeCard(result)).join('');
-    }
 
-    const nbCard = document.querySelector('.nbcard');
-    if (nbCard) {
-        nbCard.textContent = `${results.length} Recettes`;
-    }
-}
-
-
-export function searchRecipes(query) {
-    searchResults = performSearch(query);
-    displayResults(searchResults);
-    return searchResults; // Ajoutez cette ligne pour retourner les résultats
-}
-*/
 export function displayResults(results, showError = false) {
     const recipeCardsContainer = document.getElementById('recipe-cards');
     const errorMessage = document.getElementById('error-message');
