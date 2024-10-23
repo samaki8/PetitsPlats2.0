@@ -189,3 +189,180 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     toggleClearButton();
 });
+
+// Utilitaire pour générer des données de test
+function generateTestData(size) {
+    const testRecipes = [];
+    for (let i = 0; i < size; i++) {
+        testRecipes.push({
+            name: `Recipe ${i}`,
+            description: `Description for recipe ${i} with some random words like tomato, pasta, chicken`,
+            ingredients: [
+                { ingredient: 'Tomato', quantity: 2 },
+                { ingredient: 'Pasta', quantity: 100 },
+                { ingredient: 'Olive Oil', quantity: 2 }
+            ],
+            ustensils: ['pan', 'pot', 'knife'],
+            appliance: 'oven'
+        });
+    }
+    return testRecipes;
+}
+
+// Fonction pour mesurer le temps d'exécution
+function measurePerformance(fn, name, iterations = 100) {
+    const times = [];
+    console.log(`\nTesting ${name}...`);
+
+    // Warm-up (pour JIT compilation)
+    for (let i = 0; i < 5; i++) {
+        fn();
+    }
+
+    // Tests réels
+    for (let i = 0; i < iterations; i++) {
+        const start = performance.now();
+        fn();
+        const end = performance.now();
+        times.push(end - start);
+    }
+
+    // Calcul des statistiques
+    const average = times.reduce((a, b) => a + b, 0) / times.length;
+    const min = Math.min(...times);
+    const max = Math.max(...times);
+    const sorted = times.sort((a, b) => a - b);
+    const median = sorted[Math.floor(sorted.length / 2)];
+
+    console.log(`Results for ${name}:`);
+    console.log(`  Average: ${average.toFixed(3)}ms`);
+    console.log(`  Median: ${median.toFixed(3)}ms`);
+    console.log(`  Min: ${min.toFixed(3)}ms`);
+    console.log(`  Max: ${max.toFixed(3)}ms`);
+
+    return { name, average, median, min, max, times };
+}
+/*
+// Tests de performance pour la recherche
+function testSearchPerformance() {
+    console.log('=== Search Performance Tests ===');
+    
+    const testData = generateTestData(1000); // 1000 recettes
+    const searchQuery = 'tomato pasta';
+
+    // Version avec forEach/filter/some
+    function searchWithFunctional(query, recipes) {
+        const searchTerms = query.toLowerCase().trim().split(/\s+/);
+        return recipes.filter(recipe => {
+            return searchTerms.every(term => {
+                const wordBoundaryQuery = new RegExp(`\\b${term}\\b`, 'i');
+                const nameMatch = wordBoundaryQuery.test(recipe.name.toLowerCase());
+                const descriptionMatch = wordBoundaryQuery.test(recipe.description.toLowerCase());
+                const ingredientMatch = recipe.ingredients.some(ingredient =>
+                    wordBoundaryQuery.test(ingredient.ingredient.toLowerCase())
+                );
+                return nameMatch || descriptionMatch || ingredientMatch;
+            });
+        });
+    }
+
+    // Version avec boucles for
+    function searchWithForLoops(query, recipes) {
+        const searchTerms = query.toLowerCase().trim().split(/\s+/);
+        const results = [];
+        
+        for (let i = 0; i < recipes.length; i++) {
+            const recipe = recipes[i];
+            let allTermsMatch = true;
+
+            for (let j = 0; j < searchTerms.length; j++) {
+                const term = searchTerms[j];
+                const wordBoundaryQuery = new RegExp(`\\b${term}\\b`, 'i');
+                
+                const nameMatch = wordBoundaryQuery.test(recipe.name.toLowerCase());
+                const descriptionMatch = wordBoundaryQuery.test(recipe.description.toLowerCase());
+                
+                let ingredientMatch = false;
+                for (let k = 0; k < recipe.ingredients.length; k++) {
+                    if (wordBoundaryQuery.test(recipe.ingredients[k].ingredient.toLowerCase())) {
+                        ingredientMatch = true;
+                        break;
+                    }
+                }
+
+                if (!(nameMatch || descriptionMatch || ingredientMatch)) {
+                    allTermsMatch = false;
+                    break;
+                }
+            }
+
+            if (allTermsMatch) {
+                results.push(recipe);
+            }
+        }
+        
+        return results;
+    }
+
+    // Exécution des tests
+    const functionalResults = measurePerformance(
+        () => searchWithFunctional(searchQuery, testData),
+        'Functional Style Search'
+    );
+
+    const forLoopResults = measurePerformance(
+        () => searchWithForLoops(searchQuery, testData),
+        'For Loops Search'
+    );
+
+    // Comparaison des performances
+    const improvement = ((functionalResults.average - forLoopResults.average) / functionalResults.average * 100).toFixed(2);
+    console.log(`\nPerformance improvement with for loops: ${improvement}%`);
+}
+
+// Tests de performance pour l'affichage
+function testDisplayPerformance() {
+    console.log('\n=== Display Performance Tests ===');
+    
+    const testData = generateTestData(100);
+
+    // Version avec map
+    function displayWithMap(results) {
+        const html = results.map(result => `
+            <div class="recipe-card">
+                <h3>${result.name}</h3>
+                <p>${result.description}</p>
+            </div>
+        `).join('');
+        return html;
+    }
+
+    // Version avec for
+    function displayWithFor(results) {
+        let html = '';
+        for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+            html += `
+                <div class="recipe-card">
+                    <h3>${result.name}</h3>
+                    <p>${result.description}</p>
+                </div>
+            `;
+        }
+        return html;
+    }
+
+    measurePerformance(
+        () => displayWithMap(testData),
+        'Display with Map'
+    );
+
+    measurePerformance(
+        () => displayWithFor(testData),
+        'Display with For Loop'
+    );
+}
+
+// Exécution des tests
+testSearchPerformance();
+testDisplayPerformance();*/
